@@ -10,10 +10,13 @@ const float GAS_SMOOTH_ALPHA  = 0.15f;  // Glättungsfaktor (0.0 - 1.0), kleiner
 
 static float smoothedThrottle = 0.0f;   // Persistenter Wert für EMA (Signalglättung)
 volatile uint32_t pasTickCount = 0;     // Für PAS-Impulse (Interrupt)
+uint32_t getPasTickCount() {
+  return pasTickCount;
+}
 
 // PAS-Interrupt-Handler
 void IRAM_ATTR pasInterruptHandler() {
-    pasTickCount++;
+    pasTickCount += 1;
 }
 
 float processThrottle(uint16_t raw) {
